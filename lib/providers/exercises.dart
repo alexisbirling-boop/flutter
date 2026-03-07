@@ -292,7 +292,7 @@ class ExercisesProvider with ChangeNotifier {
     _logger.info('Loading all exercises from API');
     final exerciseData = await baseProvider.fetchPaginated(
       baseProvider.makeUrl(exerciseUrlPath, query: {'limit': API_MAX_PAGE_SIZE}),
-      timeout: const Duration(seconds: 15), // just in case
+      timeout: const Duration(seconds: 25), // just in case
     );
     final exerciseIds = exerciseData.map<int>((e) => e['id'] as int).toSet();
 
@@ -314,7 +314,14 @@ class ExercisesProvider with ChangeNotifier {
       // Note: no await since we don't care for the updated data right now. It
       // will be written to the db whenever the request finishes and we will get
       // the updated exercise the next time
-      handleUpdateExerciseFromApi(database, exerciseId);
+      handleUpdateExerciseFromApi(database, exerciseId).then(
+        (_) {},
+        onError: (error, stackTrace) => _logger.info(
+          'Error while calling unawaited handleUpdateExerciseFromApi',
+          error,
+          stackTrace,
+        ),
+      );
 
       return exercise;
     } on NoSuchEntryException {
@@ -369,7 +376,7 @@ class ExercisesProvider with ChangeNotifier {
         // should be safe.
         final apiData = await baseProvider.fetch(
           baseProvider.makeUrl(exerciseInfoUrlPath, id: exerciseId),
-          timeout: const Duration(seconds: 60),
+          timeout: const Duration(seconds: 120),
         );
         final exerciseApiData = ExerciseApiData.fromJson(apiData);
 
