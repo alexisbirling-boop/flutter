@@ -406,6 +406,11 @@ transmis,ce qui causant des liens de pagination cassés dans l'API (par exemple
   HTTP.
 
 **Première PR**  
+J'ai eu un commentaire disant de rendre le message d'erreur plus court et de mettre un lien vers une
+certaine page de la doc en ligne. J'ai donc fait les changements au niveau de l'affichage et changé
+un peu mon helper puisque le message d'erreur n'avait pas besoin d'être personnalisé.
+
+**Deuxième PR**  
 En attente de review.
 
 ### Problèmes rencontrés
@@ -414,6 +419,7 @@ En attente de review.
   être affichée lors de la connexion. J'ai fini par réaliser que j'appelais mon widget au mauvais
   moment dans le flow de la connexion, et que la page changeait avant que mon widget affiche son
   message.
+
 ---
 _Version 1.0_  
 _Dernière mise à jour: 03 mars 2026_  
