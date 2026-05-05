@@ -1,4 +1,4 @@
-# Remise d’avancement
+# Remise finale
 
 ## Instructions d’installation et d’utilisation
 
